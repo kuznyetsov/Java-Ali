@@ -1,83 +1,99 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const cartWrapper = document.querySelector('.cart__wrapper'),
-        cart = document.querySelector('.cart'),
-        close = document.querySelector('.cart__close'),
-        open = document.querySelector('#cart'),
-        goodsBtn = document.querySelectorAll('.goods__btn'),
-        products = document.querySelectorAll('.goods__item'),
-        confirm = document.querySelector('.confirm'),
-        badge = document.querySelector('.nav__badge'),
-        totalCost = document.querySelector('.cart__total > span'),
-        titles = document.querySelectorAll ('.goods__title');
+const cart = document.querySelector('.cart'),
+    chip_open = document.querySelector('.chip-open'),
+    chip_close = document.querySelector('.chip-close'),
+    confirm = document.querySelector('.confirm'),
+    add_chip = document.querySelectorAll('.add-chip'),
+    cart_block = document.querySelectorAll('.cart-block'),
+    cart_count = document.querySelector('.cart-count'),
+    chip_total = document.querySelector('.chip-total > span');
 
-    function openCart() {
-        cart.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
 
-    function closeCart() {
-        cart.style.display = 'none';
-        document.body.style.overflow = '';
-    }
+function OpenChip () {
+    chip_open.style.display = "block";
+}
 
-    open.addEventListener('click', openCart);
-    close.addEventListener('click', closeCart);
+function CloseChip () {
+    chip_open.style.display = "none";
+}
 
-    goodsBtn.forEach(function(btn, i) {
-        btn.addEventListener('click', () => {
-            let item = products[i].cloneNode(true),
-                trigger = item.querySelector('button'),
-                removeBtn = document.createElement('div'),
-                empty = cartWrapper.querySelector('.empty');
+cart.addEventListener('click', OpenChip);
+chip_close.addEventListener('click', CloseChip);
 
-            trigger.remove();
-
-            showConfirm();
-            calcGoods();
-
-            removeBtn.classList.add('goods__item-remove');
-            removeBtn.innerHTML = '&times';
-            item.appendChild(removeBtn);
-
-            cartWrapper.appendChild(item);
-            if(empty) {
-                empty.remove(); 
-            }
-        });
-    });
-
-    function sliceTitle() {
-        titles.forEach(function(item) {
-            if(item.textContent.length < 70) {
-                return;
-            } else {
-                const str = item.textContent.slice(0, 71) + '...';
-                item.textContent = str;
-            }
-        });
-    }
-    sliceTitle();
-
-    function showConfirm() {
-        confirm.style.display = 'block';
-        let counter = 100;
-        const id = setInterval(frame, 10);
-        function frame() {
-            if(counter == 10) {
-                clearInterval(id);
-                confirm.style.display = 'none';
-            } else {
-                counter--;
-                confirm.style.transform = `translateY(-${counter}px)`;
-                confirm.style.opacity = '.' + counter;
-            }
+function showConfirm() {
+    confirm.style.display = 'block';
+    let counter = 100;
+    const id = setInterval(frame, 10);
+    function frame() {
+        if(counter == 10) {
+            clearInterval(id);
+            confirm.style.display = 'none';
+        } else {
+            counter--;
+            confirm.style.transform = `translateY(-${counter}px)`;
+            confirm.style.opacity = '.' + counter;
         }
     }
+}
 
-    function calcGoods() {
-        const item = cartWrapper.querySelectorAll('.goods__item');
-        badge.textContent = item.length+1;
-    }
+add_chip.forEach(function(btn, i) {
+    btn.addEventListener('click', () => {
+        showConfirm();
 
-})
+        // let item = cart_block[i],
+        //     trigger = item.querySelector('button'),
+        //     removeBtn = document.createElement('div'),
+        //     empty = cart.querySelector('.empty');
+
+        // trigger.remove();
+
+        // showConfirm();
+        // calcGoods();
+
+        // removeBtn.classList.add('goods__item-remove');
+        // removeBtn.innerHTML = '&times';
+        // item.appendChild(removeBtn);
+
+        // cart.appendChild(item);
+        // if(empty) {
+        //     empty.remove(); 
+        // }
+    });
+});
+
+// function calcGoods() {
+//     const item = cart.querySelectorAll('.cart-block');
+//     cart_count.textContent = item.length+1;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
